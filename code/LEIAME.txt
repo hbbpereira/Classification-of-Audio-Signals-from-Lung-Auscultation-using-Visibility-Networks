@@ -1,0 +1,9 @@
++-----------------------------------------------------------------------------------------------+
+| File: LEIAME.txt                                                                              |
+|                                                                                               |
+| Autores: Dirceu de Freitas Piedade Melo & Hernane Borges de Barros Pereira                    |
+|                                                                                               |
+| Última atualização: 07 de outubro de 2024.                                                   |
++-----------------------------------------------------------------------------------------------+
+
+O script "Visibility-Network-Lung-Auscultation.R" deve ser executado seguindo a sequência de comandos. 
