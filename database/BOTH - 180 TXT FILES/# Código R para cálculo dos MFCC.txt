@@ -1,0 +1,93 @@
+# Código R para cálculo dos MFCC
+#************************** PACOTES E LIVRARIAS **********************************************#
+install.packages(c("igraph","readr","tuneR","cowplot","poweRlaw","brainGraph"))
+library(igraph)
+library('somebm')
+library(cowplot)
+library(poweRlaw) 
+library(readr)
+library(tuneR)
+library(brainGraph)
+#library(wrassp)
+library(readr)
+library(signal)
+library(warbleR)
+library(data.table)
+#library(oce)
+# *** DIRET?RIO ***#
+setwd("C:/Users/LENOVO/Desktop/POSDOC/Area_de_trabalho_VG_AUSCULTA3/both") 
+input <- dir(pattern='.wav') 
+#remove_silence(input)
+L <- length(input)
+#L<-10
+train_audio <- list()
+mfcc.m<- list()
+media_mfcc<-list()
+mfcc_audio<-list()
+#mfcc_audio<-data.frame()
+audio_track<-list()
+tabela.saida<-data.frame()
+
+for (i in 1:L){
+  train_audio[[i]]= readWave(input[i])
+  audio_track[[i]]<-noSilence(train_audio[[i]], zero = 0, level = 0, where = c("both"))
+  sr= audio_track[[i]]@samp.rate
+  mfcc.m [[i]]= melfcc(audio_track[[i]], sr = sr,
+                       wintime = 0.015,        # Window length in sec
+                       hoptime = 0.005,        # Successive windown inbetween in sec
+                       # numcep = 3,             # By default it will be 12 features
+                       sumpower = TRUE,        # frequence scale transformation based on powerspectrum
+                       nbands = 40,            # Number of spectra bands, filter banks
+                       bwidth = 1,             # Width of spectral bands
+                       preemph = 0.95,         # pre Emphasis
+                       #frames_in_rows = TRUE
+  )
+}
+
+  for (i in 1:L){
+  for (j in 1:12){
+   media_mfcc[[j]]<-mean(mfcc.m[[i]][,j]) 
+  }
+   mfcc_audio[[i]]<-media_mfcc
+  }
+
+#tabela.saida<-as.data.frame(do.call(rbind, mfcc_audio))
+#tabela.saida<-as.data.frame(do.call(cbind, mfcc_audio))
+#write.csv2(tabela.saida,"tabela_mfcc_audio_ausculta.csv") 
+
+#funcionando
+tabela.saida<-as.data.frame(do.call(cbind, mfcc_audio))
+dados <- do.call(rbind.data.frame, tabela.saida)
+write.csv2(dados,"mfcc_ausculta_pulmonar_both.csv")
+
+#checagem da taxa de amostragem
+
+
+#input[53]
+#"205_3b4_Pl_mc_AKGC417L"
+train_audio= readWave(input[14])
+str(train_audio)
+
+input[63]
+#"207_2b4_Ar_mc_AKGC417L.wav"
+train_audio= readWave(input[63])
+str(train_audio)
+
+input[55]
+#205_4b2_Ar_mc_AKGC417L
+train_audio= readWave(input[55])
+str(train_audio)
+
+input[65]
+#207_2b4_Pr_mc_AKGC417L
+train_audio= readWave(input[65])
+str(train_audio)
+
+input[80]
+#226_1b1_Ll_sc_Meditron
+train_audio= readWave(input[80])
+str(train_audio)
+
+
+
+

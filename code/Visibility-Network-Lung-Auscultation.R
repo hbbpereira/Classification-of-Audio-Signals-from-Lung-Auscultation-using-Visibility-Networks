@@ -34,6 +34,10 @@ setwd("/Users/hbbpereira/Downloads/Ausculta")
 
 # Carregar os nomes dos arquivos com extensão WAV
 # Load file names with WAV extension
+# Obs.: Os arquivos WAV podem ser encontrados no Respiratory Sound Database, 
+# disponíveis para download na URL https://bhichallenge.med.auth.gr/ICBHI_2017_Challenge.
+# Obs.: The WAV files can be found at the Respiratory Sound Database, 
+# available for download at https://bhichallenge.med.auth.gr/ICBHI_2017_Challenge.
 input <- dir(pattern='.wav') 
 
 # ---------------------------------------------------------------------------------
